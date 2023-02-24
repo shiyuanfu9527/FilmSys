@@ -4,7 +4,7 @@ const conn = require('../db/db');
 const svgCaptcha = require('svg-captcha');
 const util = require('../util/util');
 const multer = require('multer');
-
+const fs =require('fs')
 // 用户API
 let user = {};
 /* GET home page. */
@@ -955,6 +955,20 @@ router.post('/api/admin/upLoadImg',upload.any(),function (req,res) {
   res.json({success_code:200,data:req.files});
   console.log(req.files);
 });
+router.post('/api/admin/upLoadImgwx',function(req,res){
+  console.log('res :>> ', req.body.img);
+  const path = './public/images/avatar/' + Date.now() + '.jpg';
+  const base64 = req.body.img.replace(/^data:image\/\w+;base64./,"");
+  const dataBuffer = new Buffer(base64,'base64');
+  fs.writeFile(path,dataBuffer,function(err){
+    if(err){
+      console.log(err);
+    }else{
+      console.log('写入成功');
+    }
+  })
+  res.json({success_code:200,data:path})
+})
 
 //更新用户信息
 router.post('/api/admin/updateUserInfo',function(req,res){

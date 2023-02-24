@@ -169,6 +169,7 @@ export default {
         //读取完成后，将结果赋值给img的src
         _this.modifyUserAvatar();
         _this.$refs.previewImg.src = this.result;
+        console.log('object :>> ', this.result);
       };
     },
     //修改用户头像
@@ -179,6 +180,8 @@ export default {
       } else {
         let formData = new FormData();
         formData.append("file", this.$refs.uploadImg.files[0]);
+        console.log('object :>> ', this.$refs.uploadImg.files[0]);
+        console.log('formData :>> ', formData);
         let json = await upLoadImg(formData);
         if (json.success_code === 200) {
           if (json.data.length) {

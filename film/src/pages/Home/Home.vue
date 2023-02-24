@@ -111,6 +111,7 @@
         //加载电影列表
         async loadMovieList(){
           let json = await getMovieList();
+          console.log('json :>> ', json);
           json.data.forEach((value,index)=>{
             if (new Date()-new Date(value.public_date)>=0){
               this.hotMovieList.push(value);
